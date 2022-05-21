@@ -4,4 +4,6 @@ This repository provides **Caprover** one-click templates for the following appl
 * coturn
 * openfire
 
-Also look the original [README.md](README.md).
+For the build to work, make sure:
+* workflow actions are configured for main or master - depending on the settings
+* create gh-pages branch and configure github pages on that brunch (that's where the compiled code is published)
