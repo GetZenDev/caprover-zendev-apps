@@ -34,12 +34,12 @@ caproverOneClickApp:
         start: >-
             The TURN Server is a VoIP media traffic NAT traversal server and gateway.
             Could be used as a general-purpose network traffic TURN server and gateway, too.
-            
+
             Before configuring it in here, go and create config file on a host machine.
             F.ex.: touch /coturn.conf.
             For a full config reference check:
             https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf 
-            
+
             Host config updates will be reflected inside the Docker upon restart.
         end: >-
             Coturn is deployed and available at $$cap_root_domain.
