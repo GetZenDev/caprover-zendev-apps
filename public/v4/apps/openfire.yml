@@ -1,0 +1,57 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        caproverExtra:
+            containerHttpPort: '9090'
+        hostname: $$cap_appname.$$cap_root_domain
+        image: abra7134/openfire:$$cap_openfire_version
+        ports:
+            - 5222:5222
+            - 5223:5223
+            - 5262:5262
+            - 5263:5263
+            - 5269:5269
+            - 5270:5270
+            - 5275:5275
+            - 5276:5276
+            - 7070:7070
+            - 7443:7443
+            - 7777:7777
+        restart: always
+        volumes:
+            - $$cap_openfire_data_dir:/var/lib/openfire
+caproverOneClickApp:
+    variables:
+        - id: $$cap_openfire_version
+          label: Openfire Version
+          defaultValue: v4.7.1
+          description: Check out their Docker page for the valid tags https://hub.docker.com/r/abra7134/openfire/tags
+          validRegex: /^([^\s^\/])+$/
+
+        - id: $$cap_openfire_data_dir
+          label: Location of Openfire's data directory
+          description: Directory in which Openfire will store permanent data
+          validRegex: /\/[^\s-][a-zA-Z0-9_\/-]*[^\/][^\s-]/
+    instructions:
+        start: >-
+            Openfire is a real time collaboration (RTC) server licensed under the Open Source Apache License.
+
+            It uses the only widely adopted open protocol for instant messaging,
+            XMPP Openfire is incredibly easy to setup and administer, but offers rock-solid security and performance.
+        end: >-
+            Openfire is deployed and available as http://$$cap_appname.$$cap_root_domain.
+            Please give it a few seconds to boot, otherwise you will see a 502 error (even if the logs say it's working).
+
+
+            Remember to make the initial configuration through the web-console.
+
+            The template does not start external databases and is intended to use ONLY embedded HSQLDB storage.
+
+
+            It has the following open ports: 5222-5223, 5262-5263, 5269-5270, 5275-5276, 7070, 7443, 7777
+
+            Please check your firewall configuration
+    displayName: Openfire
+    isOfficial: false
+    description: Openfire is a real time collaboration (RTC) server licensed under the Open Source Apache License.
+    documentation: http://igniterealtime.org/projects/openfire/documentation.jsp

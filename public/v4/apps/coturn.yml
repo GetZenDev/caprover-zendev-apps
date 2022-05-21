@@ -1,0 +1,281 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        caproverExtra:
+            notExposeAsWebApp: 'true'
+        image: coturn/coturn:$$cap_coturn_version
+        ports:
+            - 3478:3478
+            - 5349:5349
+            - 49152:49152
+            - 49153:49153
+            - 49154:49154
+            - 49155:49155
+            - 49156:49156
+            - 49157:49157
+            - 49158:49158
+            - 49159:49159
+            - 49160:49160
+        restart: always
+        volumes:
+            - $$cap_coturn_config_filepath:/etc/coturn/turnserver.conf
+caproverOneClickApp:
+    variables:
+        - id: $$cap_coturn_version
+          label: Coturn Version
+          defaultValue: 4.5.2-r11
+          description: Check out their Docker page for the valid tags https://hub.docker.com/r/coturn/coturn/tags
+          validRegex: /^([^\s^\/])+$/
+        - id: $$cap_coturn_config_filepath
+          label: Location of Coturn's configuration file (its contents may be empty)
+          validRegex: /\/[^\s-][a-zA-Z0-9_\/-]*[^\/][^\s-]/
+          description: Location of Coturn's configuration file
+    instructions:
+        start: >-
+            The TURN Server is a VoIP media traffic NAT traversal server and gateway.
+
+            It can be used as a general-purpose network traffic TURN server and gateway, too.
+
+
+            Example of configuration file (full version see at: https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf)
+
+            ```
+            #listening-device=eth0
+
+            #listening-port=3478
+
+            #tls-listening-port=5349
+
+            #alt-listening-port=0
+
+            #alt-tls-listening-port=0
+
+            #tcp-proxy-port=5555
+
+            #listening-ip=172.17.19.101
+
+            #listening-ip=10.207.21.238
+
+            #listening-ip=2607:f0d0:1002:51::4
+
+            #aux-server=172.17.19.110:33478
+
+            #aux-server=[2607:f0d0:1002:51::4]:33478
+
+            #udp-self-balance
+
+            #relay-device=eth1
+
+            #relay-ip=172.17.19.105
+
+            #relay-ip=2607:f0d0:1002:51::5
+
+            #external-ip=60.70.80.91
+
+            #relay-threads=0
+
+            #min-port=49152
+
+            #max-port=65535
+
+            #verbose
+
+            #fingerprint
+
+            #lt-cred-mech
+
+            #no-auth
+
+            #prometheus
+
+            #use-auth-secret
+
+            #static-auth-secret=north
+
+            #server-name=blackdow.carleon.gov
+
+            #oauth
+
+            #user=username1:key1
+
+            #user=username2:key2
+
+            #user=username1:password1
+
+            #user=username2:password2
+
+            #user=ninefingers:0xbc807ee29df3c9ffa736523fb2c4e8ee
+
+            #userdb=/var/db/turndb
+
+            #psql-userdb="host=<host> dbname=<database-name> user=<database-user> password=<database-user-password> connect_timeout=30"
+
+            #mysql-userdb="host=<host> dbname=<database-name> user=<database-user> password=<database-user-password> port=<port> connect_timeout=<seconds> read_timeout=<seconds>"
+
+            #secret-key-file=/path/
+
+            #mongo-userdb="mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]"
+
+            #redis-userdb="ip=<ip-address> dbname=<database-number> password=<database-user-password> port=<port> connect_timeout=<seconds>"
+
+            #redis-statsdb="ip=<ip-address> dbname=<database-number> password=<database-user-password> port=<port> connect_timeout=<seconds>"
+
+            #realm=mycompany.org
+
+            #check-origin-consistency
+
+            #user-quota=0
+
+            #total-quota=0
+
+            #max-bps=0
+
+            #bps-capacity=0
+
+            #no-udp
+
+            #no-tcp
+
+            #no-tls
+
+            #no-dtls
+
+            #no-udp-relay
+
+            #no-tcp-relay
+
+            #stale-nonce=600
+
+            #max-allocate-lifetime=3600
+
+            #channel-lifetime=600
+
+            #permission-lifetime=300
+
+            #cert=/usr/local/etc/turn_server_cert.pem
+
+            #pkey=/usr/local/etc/turn_server_pkey.pem
+
+            #pkey-pwd=...
+
+            #cipher-list="DEFAULT"
+
+            #CA-file=/etc/ssh/id_rsa.cert
+
+            #ec-curve-name=prime256v1
+
+            #dh566
+
+            #dh1066
+
+            #dh-file=<DH-PEM-file-name>
+
+            #no-stdout-log
+
+            #log-file=/var/tmp/turn.log
+
+            #syslog
+
+            #simple-log
+
+            #new-log-timestamp
+
+            #new-log-timestamp-format "%FT%T%z"
+
+            #log-binding
+
+            #alternate-server=1.2.3.4:5678
+
+            #alternate-server=11.22.33.44:56789
+
+            #alternate-server=5.6.7.8
+
+            #alternate-server=[2001:db8:85a3:8d3:1319:8a2e:370:7348]:3478
+
+            #tls-alternate-server=1.2.3.4:5678
+
+            #tls-alternate-server=11.22.33.44:56789
+
+            #tls-alternate-server=[2001:db8:85a3:8d3:1319:8a2e:370:7348]:3478
+
+            #stun-only
+
+            #no-software-attribute
+
+            #no-stun
+
+            #rest-api-separator=:
+
+            #allow-loopback-peers
+
+            #no-multicast-peers
+
+            #max-allocate-timeout=60
+
+            #denied-peer-ip=83.166.64.0-83.166.95.255
+
+            #allowed-peer-ip=83.166.68.45
+
+            #pidfile="/var/run/turnserver.pid"
+
+            #secure-stun
+
+            #mobility
+
+            #keep-address-family
+
+            #allocation-default-address-family="ipv4"
+
+            #allocation-default-address-family="ipv4"
+
+            #proc-user=<user-name>
+
+            #proc-group=<group-name>
+
+            #no-cli
+
+            #cli-ip=127.0.0.1
+
+            #cli-port=5766
+
+            #cli-password=$5$79a316b350311570$81df9cfb9af7f5e5a76eada31e7097b663a0670f99a3c07ded3f1c8e59c5658a
+
+            #cli-password=qwerty
+
+            #web-admin
+
+            #web-admin-ip=127.0.0.1
+
+            #web-admin-port=8080
+
+            #web-admin-listen-on-workers
+
+            #server-relay
+
+            #cli-max-output-sessions
+
+            #ne=[1|2|3]
+
+            #no-tlsv1
+
+            #no-tlsv1_1
+
+            #no-tlsv1_2
+
+            #no-rfc5780
+
+            #no-stun-backward-compatibility
+
+            #response-origin-only-with-rfc5780
+            ```
+        end: >-
+            Coturn is deployed and available at $$cap_root_domain.
+
+
+            It has the following open ports: 3478, 5349, 49152-49160
+
+            Please check your firewall configuration
+    displayName: Coturn
+    isOfficial: false
+    description: Coturn is a TURN Server is a VoIP media traffic NAT traversal server and gateway.
+    documentation: https://github.com/coturn/coturn
