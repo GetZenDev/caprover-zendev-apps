@@ -27,16 +27,13 @@ caproverOneClickApp:
           description: Check out their Docker page for the valid tags https://hub.docker.com/r/coturn/coturn/tags
           validRegex: /^([^\s^\/])+$/
         - id: $$cap_coturn_config_filepath
-          label: Location of Coturn's configuration file (its contents may be empty)
+          label: Required: `touch ~/coturn.conf` on a host machine and place it's full path here. Go to https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf for a full reference. Host config updates will be reflected into the Docker upon restart.
           validRegex: /\/[^\s-][a-zA-Z0-9_\/-]*[^\/][^\s-]/
           description: Location of Coturn's configuration file
     instructions:
         start: >-
             The TURN Server is a VoIP media traffic NAT traversal server and gateway.
-
-            It can be used as a general-purpose network traffic TURN server and gateway, too.
-
-            Example of configuration file (full version see at: https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf)
+            Could be used as a general-purpose network traffic TURN server and gateway, too.
 
         end: >-
             Coturn is deployed and available at $$cap_root_domain.
