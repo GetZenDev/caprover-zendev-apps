@@ -29,8 +29,8 @@ caproverOneClickApp:
           validRegex: /^([^\s^\/])+$/
 
         - id: $$cap_openfire_data_dir
-          label: Location of Openfire's data directory
-          description: Directory in which Openfire will store permanent data
+          label: Openfire's persistent data path
+          description: Create on the host directory for Openfire persistent data
           validRegex: /\/[^\s-][a-zA-Z0-9_\/-]*[^\/][^\s-]/
     instructions:
         start: >-
